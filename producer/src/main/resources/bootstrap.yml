@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:9999
+      name: producer
+      fail-fast: true # 连接不到服务配置 服务关掉
+      retry:
+        initial-interval: 1000  # 连接间隔时间
+        max-attempts: 6   # 连接次数 默认6
+#      label: master
+#      profile: dev
+#      name: billing

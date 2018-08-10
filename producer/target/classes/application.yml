@@ -1,0 +1,32 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: producer
+  liquibase:
+    change-log: classpath:liquibase/master-log.yml
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0   # 采样比例设置 1.0 全部获取  0->1
+  datasource:
+    password:
+    username: root
+    url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf8&useSSL=false
+    type: com.zaxxer.hikari.HikariDataSource
+eureka:
+  instance:
+    hostname: localhost
+    statusPageUrl: http://localhost:8080/swagger-ui.html       # eureka status 链接
+    healthCheckUrl: https://${eureka.hostname}/health
+    homePageUrl: https://${eureka.hostname}/
+  client:
+    service-url:
+      default-zone: http://lcoalhost:8761/eureka
+logging:
+  level:
+    org.springframework.cloud: 'INFO'

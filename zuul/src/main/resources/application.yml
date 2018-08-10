@@ -1,0 +1,33 @@
+server:
+  port: 4000
+spring:
+  application:
+    name: zuul
+zuul:
+  ignored-services: '*' # 忽略所有的默认路由
+  routes:
+    producer:
+      path: /springboot/**
+      serviceId: springboot
+    consume:
+      path: /consume/**
+      serviceId: consume
+#hystrix: #hystrix配置
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 60000
+#ribbon: #ribbon负载均衡参数配置
+#  ReadTimeout: 5000
+#  ConnectTimeout: 5000
+eureka:
+  instance:
+    hostname: zuul
+    status-page-url: http://localhost:4000/swagger-ui.html
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

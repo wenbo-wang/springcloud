@@ -1,0 +1,7 @@
+com/example/producer/repository/UserRepository.class
+com/example/producer/config/Swagger2.class
+com/example/producer/domain/User.class
+com/example/producer/service/UserService.class
+com/example/producer/ProducerApplication.class
+com/example/producer/service/impl/UserServiceImpl.class
+com/example/producer/web/rest/UserController.class

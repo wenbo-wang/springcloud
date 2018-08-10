@@ -1,0 +1,19 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: config
+  profiles:
+    active: native
+  cloud:
+      config:
+        server:
+          native:
+            search-locations: classpath:/config  # 本地  config
+#          git:        使用git config
+#            uri: https://github.com/solocy/config.git
+#            clone-on-start: true
+
+logging:
+  level:
+    ROOT: 'INFO'
