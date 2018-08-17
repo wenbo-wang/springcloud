@@ -31,3 +31,11 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka/
+guard:
+  cors:
+    allowed-origins: "*"
+    allowed-methods: "*"
+    allowed-headers: "*"
+    exposed-headers: "Authorization,Link,X-Total-Count,X-guardApp-error,X-guardApp-params,X-guardApp-alert"
+    allow-credentials: true
+    max-age: 1800

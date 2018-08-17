@@ -23,6 +23,8 @@ _日志记录：_
 
 8.10 zuul swagger2 
 
+8.12 security 跨域解决
+
 **_踩坑日记：_**
 
 1 config 配置要放在bootstrap.yml文件中
