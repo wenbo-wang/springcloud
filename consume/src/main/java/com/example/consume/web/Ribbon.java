@@ -3,10 +3,12 @@ package com.example.consume.web;
 import com.example.consume.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program springboot
@@ -20,6 +22,12 @@ public class Ribbon {
     @Autowired
     private TestService testService;
 
+    @PostMapping("/test")
+    public String test(String path) throws InterruptedException {
+        Thread.sleep(100000);
+        return path;
+    }
+
     @GetMapping("/test")
     public String test() {
         return testService.test();
@@ -31,7 +39,7 @@ public class Ribbon {
     }
 
     @GetMapping("/zuul-test")
-    public String zuulTest() throws ExecutionException, InterruptedException {
+    public String zuulTest() {
         return "zuul";
     }
     // todo 响应式编程使用

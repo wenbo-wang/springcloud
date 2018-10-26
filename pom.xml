@@ -16,6 +16,9 @@
         <module>consume</module>
         <module>zuul</module>
         <module>zookeeper-producer</module>
+        <module>elasticsearch</module>
+        <module>webflux</module>
+        <module>webflux-annotation</module>
     </modules>
 
 </project>
