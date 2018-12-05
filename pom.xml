@@ -19,6 +19,8 @@
         <module>elasticsearch</module>
         <module>webflux</module>
         <module>webflux-annotation</module>
+        <module>kafka</module>
+        <module>cloud-kafka</module>
     </modules>
 
 </project>
