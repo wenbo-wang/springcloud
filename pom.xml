@@ -21,6 +21,7 @@
         <module>webflux-annotation</module>
         <module>kafka</module>
         <module>cloud-kafka</module>
+        <module>message</module>
     </modules>
 
 </project>
