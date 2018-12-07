@@ -1,5 +1,6 @@
 package com.example.kafka.service;
 
+import com.example.kafka.config.KafkaTopicProperties;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import java.util.Arrays;
+
 @Service
 public class IndicatorService {
 
@@ -18,6 +21,8 @@ public class IndicatorService {
 
     private final KafkaTemplate<Integer, String> kafkaTemplate;
 
+    @Autowired
+    private KafkaTopicProperties properties;
     /**
      * 注入KafkaTemplate
      * @param kafkaTemplate kafka模版类
@@ -27,29 +32,31 @@ public class IndicatorService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    @KafkaListener(topics = "#{topics}", groupId = "#{groups}")
+    @KafkaListener(topics = "192.168.1.106", groupId = "#{groups}")
     public void processMessage(ConsumerRecord<Integer, String> record) {
         LOG.info("kafka processMessage start");
         LOG.info("processMessage, topic = {}, msg = {}", record.topic(), record.value());
 
-
         LOG.info("kafka processMessage end");
     }
 
-    public void sendMessage(String topic, String data) {
+    public void sendMessage(String data) {
         LOG.info("kafka sendMessage start");
-        ListenableFuture<SendResult<Integer, String>> future = kafkaTemplate.send(topic, data);
-        future.addCallback(new ListenableFutureCallback<SendResult<Integer, String>>() {
-            @Override
-            public void onFailure(Throwable ex) {
-                LOG.error("kafka sendMessage error, ex = {}, topic = {}, data = {}", ex, topic, data);
-            }
+        Arrays.stream(properties.getTopicName())
+                .forEach(topic -> {
+                    ListenableFuture<SendResult<Integer, String>> future = kafkaTemplate.send(topic, data);
+                    future.addCallback(new ListenableFutureCallback<SendResult<Integer, String>>() {
+                        @Override
+                        public void onFailure(Throwable ex) {
+                            LOG.error("kafka sendMessage error, ex = {}, topic = {}, data = {}", ex, topic, data);
+                        }
 
-            @Override
-            public void onSuccess(SendResult<Integer, String> result) {
-                LOG.info("kafka sendMessage success topic = {}, data = {}",topic, data);
-            }
-        });
+                        @Override
+                        public void onSuccess(SendResult<Integer, String> result) {
+                            LOG.info("kafka sendMessage success topic = {}, data = {}",topic, data);
+                        }
+                    });
+                });
         LOG.info("kafka sendMessage end");
     }
 }

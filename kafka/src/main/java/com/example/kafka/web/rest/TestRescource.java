@@ -15,6 +15,6 @@ public class TestRescource {
 
     @GetMapping("/test/{string}")
     public void test(@PathVariable String string) {
-        indicatorService.sendMessage("topic1",string);
+        indicatorService.sendMessage(string);
     }
 }
